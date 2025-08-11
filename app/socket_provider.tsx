@@ -15,7 +15,7 @@ export default function Socket_Provider({ children }: SocketProviderProps) {
 
   useEffect(() => {
     if (!socketRef.current) {
-      socketRef.current = io('http://localhost:3001', {
+      socketRef.current = io('https://c7c4a837-d950-472e-8e09-11c25104cb8b-00-236gow97avv2r.spock.replit.dev/', {
         transports: ['websocket'],
       });
 
