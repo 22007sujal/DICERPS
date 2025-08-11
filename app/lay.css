@@ -1,0 +1,39 @@
+ html ,* {
+    margin: 0px;
+    padding: 0px;
+    height: 100%;
+}
+
+
+#title {
+    font-family: 'Kalam', cursive;
+    font-weight: 700;
+    font-size: xx-large;
+}
+
+#navbar-main {
+    display: flex;
+    align-items: center;
+    margin: 0px;
+    padding-top: 5px;
+    background-color: #E2FF84;
+    justify-content: space-between;
+}
+
+#logo-title {
+    display: flex;
+    align-items: center;
+}
+
+
+#wallet-address-box {
+    width: 200px;
+    height: 40px;
+    margin-right: 20px;
+    border-radius: 10px;
+    background: linear-gradient(90deg, #f2d936 0%, #f15850 50%, #a0e3fd 90%);
+    box-shadow:
+        0 4px 20px rgba(0, 0, 0, 0.1),
+        inset 0 2px 8px rgba(0, 0, 0, 0.2),
+        inset 0 -2px 8px rgba(0, 0, 0, 0.15);
+}

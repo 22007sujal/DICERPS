@@ -1,0 +1,84 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Kalam:wght@300;400;700&display=swap');
+
+#navbar_connected {
+    width: 100%;
+    height: 80px;
+    font-family: "Kalam", cursive;
+    font-weight: 700;
+    font-style: normal;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #E2FF84;
+}
+
+#navbar_connected img {
+    width: 85px;
+    height: 85px;
+    margin-left: 10px;
+}   
+
+
+#navbar_not_connected {
+    width: 100%;
+    height: 80px;
+    font-family: "Kalam", cursive;
+    font-weight: 700;
+    font-style: normal;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #E2FF84;
+}
+
+#navbar_not_connected img {
+    width: 85px;
+    height: 85px;
+    margin-left: 10apx;
+}
+
+.logo-with-text {
+   display: flex;
+   align-items: center;
+
+}
+
+.logo-with-text h1 {
+    font-size: 35px;
+    height: fit-content;
+}
+
+#connect {
+    margin-right: 20px;
+    height: 45px;
+    width: 130px;
+    cursor: pointer;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    background: linear-gradient(90deg, #f2d936 0%, #f15850 50%, #a0e3fd 90%);
+    box-shadow:
+        0 4px 20px rgba(0, 0, 0, 0.1),
+        inset 0 2px 8px rgba(0, 0, 0, 0.2),
+        inset 0 -2px 8px rgba(0, 0, 0, 0.15);
+    color: white;
+    font-size: x-large;
+    transition: all 0.3s ease; /* Smooth animation */
+}
+
+#connect:hover {
+    transform: scale(1.05); /* Slight zoom */
+    filter: brightness(1.1); /* Slightly brighter */
+    box-shadow:
+        0 6px 24px rgba(0, 0, 0, 0.2),
+        inset 0 3px 10px rgba(0, 0, 0, 0.25),
+        inset 0 -3px 10px rgba(0, 0, 0, 0.2);
+}
+
+#connect p {
+
+    height: fit-content;
+}

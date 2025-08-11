@@ -1,0 +1,76 @@
+#play-container {
+  width: 100%;
+  height: 100%;
+  background-color: #E2FF84;
+}
+
+#ticket-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+}
+
+#YELLOW,
+#RED,
+#BLUE {
+    width: 60%;
+    height: 25%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border 0.2s ease;
+    border: 2px solid transparent; /* default no border */
+}
+
+
+
+#YELLOW img:hover {
+    transform: scale(1.05);
+    filter: 
+        drop-shadow(0 0 5px white)
+        drop-shadow(0 0 15px rgba(255, 255, 250, 0.6)) /* yellow tint */
+        drop-shadow(0 0 25px rgba(255, 254, 254, 0.4));
+    cursor: pointer;
+    transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+#RED img:hover {
+    transform: scale(1.05);
+    filter: 
+        drop-shadow(0 0 5px white)
+        drop-shadow(0 0 15px rgba(255, 0, 0, 0.6)) /* red tint */
+        drop-shadow(0 0 25px rgba(255, 255, 255, 0.4));
+    cursor: pointer;
+    transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+#BLUE img:hover {
+    transform: scale(1.05);
+    filter: 
+        drop-shadow(0 0 5px white)
+        drop-shadow(0 0 15px rgba(0, 100, 255, 0.6)) /* blue tint */
+        drop-shadow(0 0 25px rgba(255, 255, 255, 0.4));
+    cursor: pointer;
+    transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+
+
+
+
+
+#howto {
+    display: flex;
+    justify-content: end;
+    height: fit-content;
+    background-color: #E2FF84;
+    font-family: "Kalam", cursive;
+}
+
+#howto h1 {
+    margin-right: 10px;
+}

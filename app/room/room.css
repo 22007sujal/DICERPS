@@ -1,0 +1,130 @@
+#room-container {
+    background-color: #E2FF84;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    gap: 30px;
+    padding: 10px;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+
+.opponent-container {
+    max-width: 700px;
+    width: 100%;
+    height: 70px;
+    border-radius: 10px;
+    display: flex;
+    background: linear-gradient(90deg, #f2d936 0%, #f15850 50%, #a0e3fd 90%);
+    box-shadow:
+        0 4px 20px rgba(0, 0, 0, 0.1),
+        inset 0 2px 8px rgba(0, 0, 0, 0.2),
+        inset 0 -2px 8px rgba(0, 0, 0, 0.15);
+    justify-content: space-between;
+    position: absolute;
+    z-index: 3;
+    /* higher layer */
+
+}
+
+#jk {
+    display: flex;
+    gap: 110px;
+}
+
+#kj {
+      display: flex;
+    gap: 110px;
+    transform: rotate(180deg);
+    width: 60%;
+    justify-content: center;
+    margin-right: 150px;
+}
+
+.cards {
+    width: 130px;
+    height: 120px;
+    border-radius: 10px;
+    border: 2px solid black;
+    background-color: aliceblue;
+    position: relative;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+    transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+    cursor: pointer;
+}
+
+
+
+
+
+#ground {
+    width: 100%;
+    max-width: 700px;
+    height: 240px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: column;
+
+}
+
+
+.card_holder {
+    width: 140px;
+    height: 140px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+
+#holders {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    align-items: center;
+}
+
+#ground h1 {
+    margin: 0px;
+    padding: 0px;
+    height: fit-content;
+    font-family: "Kalam", sans-serif;
+    color: black;
+}
+
+#player1 p,
+#player2 p {
+    margin: 0px;
+    padding: 0px;
+    font-family: "Kalam", sans-serif;
+    color: black;
+    height: fit-content;
+}
+
+
+
+#kj-main{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+#dice {
+    border: 2px dotted black;
+    width: 150px;
+    height: 150px;
+    margin-top: 20px;
+    border-radius: 10px;
+    background-color: white;
+    padding: 5px;
+}
