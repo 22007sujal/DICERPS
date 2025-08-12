@@ -82,6 +82,9 @@ export default function Page() {
     };
   }, [socket]);
 
+
+  console.log(player_role)
+
   return (
     <div id="room-container">
       {/* Enemy Cards */}
@@ -208,7 +211,7 @@ export default function Page() {
                 : "translate(0, 0)",
           }}
         />
-        <div className="opponent-container"></div>
+        <div className="opponent-container"><h1>{player_role}</h1></div>
       </div>
     </div>
     </div>

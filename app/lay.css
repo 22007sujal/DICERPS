@@ -1,39 +1,89 @@
- html ,* {
+@import url('https://fonts.googleapis.com/css2?family=Abel&family=Audiowide&family=Kalam:wght@300;400;700&display=swap');
+
+
+html ,* {
     margin: 0px;
     padding: 0px;
-    height: 100%;
+    height: 96.3%;
 }
 
-
-#title {
-    font-family: 'Kalam', cursive;
-    font-weight: 700;
-    font-size: xx-large;
+html {
+       background-color: #E2FF84;
 }
 
-#navbar-main {
-    display: flex;
-    align-items: center;
-    margin: 0px;
-    padding-top: 5px;
+#main-container {
     background-color: #E2FF84;
-    justify-content: space-between;
-}
-
-#logo-title {
     display: flex;
+    justify-content: space-between;
     align-items: center;
+    flex-direction: column;
 }
 
 
-#wallet-address-box {
-    width: 200px;
-    height: 40px;
-    margin-right: 20px;
+#wallet-connect {
+   width: 100%;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   
+}
+
+#wallet-connect h2 {
+    width: fit-content;
+    height: fit-content;
+    font-size: xx-large;
+    padding: 10px;
     border-radius: 10px;
     background: linear-gradient(90deg, #f2d936 0%, #f15850 50%, #a0e3fd 90%);
     box-shadow:
         0 4px 20px rgba(0, 0, 0, 0.1),
         inset 0 2px 8px rgba(0, 0, 0, 0.2),
         inset 0 -2px 8px rgba(0, 0, 0, 0.15);
+        font-family: "audiowide", cursive;
+        color: white;
+        transition: all 0.3s ease; /* Smooth animation */
+        
+}
+
+#wallet-connect h2:hover {
+    transform: scale(1.05); /* Slight zoom */
+    filter: brightness(1.1); /* Slightly brighter */
+    box-shadow:
+        0 6px 24px rgba(0, 0, 0, 0.2),
+        inset 0 3px 10px rgba(0, 0, 0, 0.25),
+        inset 0 -3px 10px rgba(0, 0, 0, 0.2);
+    cursor: pointer; /* Pointer cursor on hover */
+}
+
+
+#credits {
+    width: 100%;
+    height: fit-content;
+    display: flex;
+   justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+
+#shy {
+  width: 90%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+}
+
+#shy p {
+    margin-left: 110px;
+    font-size: x-large;
+    font-family: "abel", sans-serif;
+}
+
+#how {
+   font-size: x-large;
+   font-family: "abel", sans-serif;
+   display: flex;
+   align-items: center;
+   justify-content: center;
 }

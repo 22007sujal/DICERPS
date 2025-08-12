@@ -1,7 +1,7 @@
+// server.js
 const express = require("express");
 const { createServer } = require("http");
 const { Server } = require("socket.io");
-const match_player = require("./app/[utility]/match_player");
 
 const player_waiting = {
   RED: [],
@@ -9,7 +9,7 @@ const player_waiting = {
   YELLOW: [],
 };
 
-const game_states = new Map();
+const game_states = new Map(); // room_id -> state
 
 const app = express();
 const server = createServer(app);
@@ -27,7 +27,7 @@ io.on("connection", (socket) => {
   // Handle Player Move
   // -------------------------
   socket.on("move", (data) => {
-    const { room_id, player, move, card_id } = data; // player: "player1" or "player2"
+    const { room_id, player, move, card_id } = data || {};
 
     if (!room_id || !player || !move) {
       console.warn(`Invalid move data from ${socket.id}:`, data);
@@ -40,46 +40,39 @@ io.on("connection", (socket) => {
       return;
     }
 
-    // Save move for correct player
-    if (player === "player1" && socket.id === game_state.player1_socket_id) {
+    const isP1 = player === "player1" && socket.id === game_state.player1_socket_id;
+    const isP2 = player === "player2" && socket.id === game_state.player2_socket_id;
+
+    if (isP1) {
       game_state.player1_move = move;
-      io.to(game_state.player2_socket_id).emit("opponent_move", { card_id });
-    } else if (
-      player === "player2" &&
-      socket.id === game_state.player2_socket_id
-    ) {
+      if (game_state.player2_socket_id) {
+        io.to(game_state.player2_socket_id).emit("opponent_move", { card_id: card_id ?? null });
+      }
+    } else if (isP2) {
       game_state.player2_move = move;
-      io.to(game_state.player1_socket_id).emit("opponent_move", { card_id });
+      if (game_state.player1_socket_id) {
+        io.to(game_state.player1_socket_id).emit("opponent_move", { card_id: card_id ?? null });
+      }
     } else {
       console.warn(`Invalid player or socket mismatch in room ${room_id}`);
       return;
     }
 
-    console.log(`Room ${room_id} - Round ${game_state.round} -`, game_state);
-
-    // Check if both players have made their move
     if (game_state.player1_move !== null && game_state.player2_move !== null) {
-      console.log(
-        `Checking winner for Room ${room_id}, Round ${game_state.round}...`
-      );
+      const winner = checkWinner(game_state.player1_move, game_state.player2_move);
 
-      const winner = checkWinner(
-        game_state.player1_move,
-        game_state.player2_move
-      );
       io.to(room_id).emit("round_result", {
         round: game_state.round,
         winner,
       });
+      
 
-      // If last round, end the game
       if (game_state.round >= 3) {
         io.to(room_id).emit("game_over", { message: "Game has ended" });
         game_states.delete(room_id);
         return;
       }
 
-      // Prepare for next round
       game_state.player1_move = null;
       game_state.player2_move = null;
       game_state.round++;
@@ -96,44 +89,65 @@ io.on("connection", (socket) => {
     }
 
     const Queue = player_waiting[color];
-    Queue.push(socket.id);
 
-    const matchedPlayers = match_player(Queue);
+    if (!Queue.includes(socket.id)) {
+      Queue.push(socket.id);
+    }
 
-    if (matchedPlayers) {
-      // Create unique room ID
-      const room_id = `room_${Date.now()}_${Math.floor(
-        Math.random() * 1000000
-      )}`;
+    if (Queue.length >= 2) {
+      console.log("match found");
 
-      // Store both players' socket IDs in game state
+      const player1Id = Queue.shift();
+      const player2Id = Queue.shift();
+
+      const room_id = `room_${Date.now()}_${Math.floor(Math.random() * 1_000_000)}`;
+
+      const player1Socket = io.sockets.sockets.get(player1Id);
+      const player2Socket = io.sockets.sockets.get(player2Id);
+
+      if (!player1Socket || !player2Socket) {
+        if (player1Socket) Queue.unshift(player1Id);
+        if (player2Socket) Queue.unshift(player2Id);
+        return;
+      }
+
       game_states.set(room_id, {
-        player1_socket_id: matchedPlayers[0],
-        player2_socket_id: matchedPlayers[1],
+        player1_socket_id: player1Id,
+        player2_socket_id: player2Id,
         player1_move: null,
         player2_move: null,
         round: 1,
       });
 
-      // Join players to the room
-      matchedPlayers.forEach((playerId, index) => {
-        const playerSocket = io.sockets.sockets.get(playerId);
-        if (playerSocket) {
-          playerSocket.join(room_id);
-          playerSocket.emit("assign_role", { player: `player${index + 1}` });
-        }
-      });
+      player1Socket.join(room_id);
+      player2Socket.join(room_id);
 
-      // Notify players
-      io.to(room_id).emit("match_found", {
-        players: matchedPlayers,
-        color,
-        room_id,
-      });
-
+      // Delay match_found emit so both clients are ready
       setTimeout(() => {
-        io.to(room_id).emit("match_started", { room_id });
-      }, 500);
+        player1Socket.emit("match_found", {
+          players: [player1Id, player2Id],
+          color,
+          room_id,
+          role: "player1",
+        });
+
+        player2Socket.emit("match_found", {
+          players: [player1Id, player2Id],
+          color,
+          room_id,
+          role: "player2",
+        });
+
+        // Delay match_started to ensure both received match_found
+        setTimeout(() => {
+          if (game_states.has(room_id)) {
+            io.to(room_id).emit("match_started", { room_id });
+          }
+        }, 1000);
+      }, 2000); // wait 2s before sending match_found
+
+    } else {
+      console.log("there is only one player in queue");
     }
   });
 
@@ -143,23 +157,34 @@ io.on("connection", (socket) => {
   socket.on("disconnect", () => {
     console.log(`User disconnected: ${socket.id}`);
 
-    // Remove player from queues
     Object.keys(player_waiting).forEach((color) => {
       const index = player_waiting[color].indexOf(socket.id);
       if (index > -1) {
         player_waiting[color].splice(index, 1);
       }
     });
+
+    for (const [room_id, state] of game_states.entries()) {
+      const { player1_socket_id, player2_socket_id } = state;
+
+      if (player1_socket_id === socket.id || player2_socket_id === socket.id) {
+        const opponentId =
+          player1_socket_id === socket.id ? player2_socket_id : player1_socket_id;
+        if (opponentId) {
+          io.to(opponentId).emit("opponent_disconnected", { room_id });
+          io.to(room_id).emit("game_over", { message: "Opponent disconnected" });
+        }
+        game_states.delete(room_id);
+      }
+    }
   });
 });
 
 // -------------------------
-// Winner Logic (Example)
+// Winner Logic
 // -------------------------
 function checkWinner(move1, move2) {
   if (move1 === move2) return "draw";
-
-  // Example: rock-paper-scissors
   if (
     (move1 === "rock" && move2 === "scissors") ||
     (move1 === "paper" && move2 === "rock") ||

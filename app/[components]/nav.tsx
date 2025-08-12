@@ -1,19 +1,23 @@
-"use client"
+"use client";
 
-import React, { useEffect, useState } from 'react'
-import { useAccount, useConnect } from 'wagmi'
-import "./nav.css"
+import React, { useEffect, useState } from "react";
+import { useAccount, useConnect } from "wagmi";
+import "./nav.css";
 
-export default function Nav() {
+interface NavProps {
+  showConnect?: boolean; // ✅ optional prop
+}
+
+export default function Nav({ showConnect = true }: NavProps) {
   const { isConnected, address } = useAccount();
   const { connect, connectors } = useConnect();
 
   const [connector, setConnector] = useState<any | null>(null);
-  const [mounted, setMounted] = useState(false); // ✅ Add mounted state
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     setConnector(connectors[1]);
-    setMounted(true); // ✅ Mark component as mounted
+    setMounted(true);
   }, [connectors]);
 
   async function connect_wallet() {
@@ -26,9 +30,7 @@ export default function Nav() {
     }
   }
 
-  if (!mounted) {
-    return null; // ✅ Prevent hydration mismatch
-  }
+  if (!mounted) return null;
 
   return (
     <nav id={isConnected ? "navbar_connected" : "navbar_not_connected"}>
@@ -36,9 +38,13 @@ export default function Nav() {
         <img src="./dicerpslogo.png" alt="logo" />
         <h1>DICERPS</h1>
       </div>
-      <div id="connect" onClick={!isConnected ? connect_wallet : undefined}>
-        <p>{isConnected ? address?.slice(0, 7) : "CONNECT"}</p>
-      </div>
+
+      {/* ✅ Only render connect div if prop is true */}
+      {showConnect && (
+        <div id="connect" onClick={!isConnected ? connect_wallet : undefined}>
+          <p>{isConnected ? address?.slice(0, 7) : "CONNECT"}</p>
+        </div>
+      )}
     </nav>
   );
 }
