@@ -2,6 +2,8 @@
   width: 100%;
   height: 100%;
   background-color: #E2FF84;
+  display: flex;
+  flex-direction: column;
 }
 
 #ticket-container {
@@ -13,6 +15,8 @@
   align-items: center;
 
 }
+
+
 
 #YELLOW,
 #RED,
@@ -26,6 +30,14 @@
     border: 2px solid transparent; /* default no border */
 }
 
+#username {
+    height: fit-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'abel';
+    font-style: italic;
+}
 
 
 #YELLOW img:hover {

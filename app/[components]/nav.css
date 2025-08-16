@@ -1,5 +1,7 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Kalam:wght@300;400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap');
+
 
 #navbar_connected {
     width: 100%;
@@ -67,6 +69,7 @@
     color: white;
     font-size: x-large;
     transition: all 0.3s ease; /* Smooth animation */
+    margin-top: 13px;
 }
 
 #connect:hover {
@@ -81,4 +84,154 @@
 #connect p {
 
     height: fit-content;
+}
+
+.wallet-dropdown-card {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: black;
+  border-radius: 20px;
+  padding: 20px;
+  min-width: 200px;
+  text-align: center;
+  border: 2px solid #8de6ff; /* Outer neon blue border */
+  box-shadow: 0 0 8px #8de6ff; /* Glow effect */
+    font-family: 'Orbitron', sans-serif;
+}
+
+.wallet-balance {
+  font-family: 'Orbitron', sans-serif; /* Similar sci-fi font */
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: white;
+  margin-bottom: 15px;
+}
+
+.wallet-history-btn {
+  background: #69b8d3;
+  color: white;
+  font-family: 'Orbitron', sans-serif;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 999px; /* Fully rounded edges */
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s ease-in-out;
+}
+
+.wallet-history-btn:hover {
+  background: #4ca2b9;
+}
+
+
+/* Overlay */
+.popup-overlay {
+  position: fixed;
+  height: 100%;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+/* Card */
+.popup-card {
+  background: white;
+  padding: 20px;
+  border-radius: 16px;
+  width: 300px;
+  height: 300px;
+  text-align: center;
+  box-shadow: 0px 8px 30px rgba(0, 0, 0, 0.3);
+  font-family: "Kalam", cursive;
+  animation: fadeInUp 0.3s ease-out;
+  border: 2px solid black;
+  display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: "abel";
+}
+
+/* Profile placeholder / preview */
+.profile-placeholder,
+.profile-preview {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 3px solid #ccc;
+  object-fit: cover;
+  margin-bottom: 10px;
+}
+
+.profile-placeholder {
+  background: #f0f0f0;
+  font-family: "abel";
+}
+
+/* File input styling */
+.profile-image-wrapper input[type="file"] {
+  margin: 10px auto;
+  height: 40px;
+  display: block;
+}
+
+/* Username input */
+.popup-card input[type="text"] {
+  width: 90%;
+  padding: 8px;
+  margin: 8px 0;
+   height: 40px;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+/* Save button */
+.popup-card button {
+  margin-top: 10px;
+  padding: 8px 16px;
+  font-size: 1rem;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  background: linear-gradient(90deg, #f2d936, #f15850, #a0e3fd);
+  color: white;
+  font-weight: bold;
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+.popup-card button:hover {
+  transform: scale(1.05);
+  filter: brightness(1.1);
+}
+
+/* Animation */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+}
+
+.profile-image-wrapper {
+    height: fit-content;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+
+#save {
+    width: 100%;
+    height: 40px;
 }

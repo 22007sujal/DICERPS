@@ -26,7 +26,7 @@ export default function RootLayout({
         <Socket_Provider>
         <WalletProvider>
           <ROOM_PROVIDER>
-            <Nav showConnect={showConnect} /> {/* ✅ Pass prop */}
+            <Nav showConnect={showConnect} /> 
             {children}
           </ROOM_PROVIDER>
         </WalletProvider>

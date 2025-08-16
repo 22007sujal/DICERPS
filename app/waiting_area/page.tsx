@@ -10,25 +10,10 @@ export default function Page() {
   const room = useRoomContext();
   const router = useRouter();
 
-  const receivedMatchStarted = useRef(false);
-  const receivedRoleAndRoom = useRef(false);
-  const hasNavigated = useRef(false); // Prevent double navigation
+  const hasNavigatedToLobby = useRef(false);
+  const hasNavigatedToRoom = useRef(false);
 
   const DEBUG = true; // toggle this to false in production
-
-  const checkRedirect = () => {
-    if (
-      receivedMatchStarted.current &&
-      receivedRoleAndRoom.current &&
-      room.role &&
-      room.room_id &&
-      !hasNavigated.current
-    ) {
-      if (DEBUG) console.log("✅ Redirecting to /room now");
-      hasNavigated.current = true;
-      router.replace("/room");
-    }
-  };
 
   useEffect(() => {
     if (!socket) return;
@@ -37,19 +22,34 @@ export default function Page() {
       room_id: string;
       color: "RED" | "BLUE" | "YELLOW";
       role: "player1" | "player2";
-      players: string[];
+      enemy: string;
+      players: any[];
+      profile_link: string;
     }) => {
       if (DEBUG) console.log("🎯 MATCH FOUND:", data);
+      
+      // Set room data
       room.setRoomId(data.room_id as unknown as number);
       room.set_role(data.role);
-      receivedRoleAndRoom.current = true;
-      checkRedirect();
+      room.set_enemy(data.enemy);
+      room.set_profile_link(data.profile_link);
+      
+      // Redirect to lobby immediately when match is found
+      if (!hasNavigatedToLobby.current) {
+        if (DEBUG) console.log("✅ Redirecting to /lobby now");
+        hasNavigatedToLobby.current = true;
+        router.replace("/lobby");
+      }
     };
 
     const onMatchStarted = () => {
-      if (DEBUG) console.log("🚀 MATCH STARTED");
-      receivedMatchStarted.current = true;
-      checkRedirect();
+      if (DEBUG) console.log("🚀 MATCH STARTED - Redirecting to /room");
+      
+      // Redirect to room when match starts (after 10 seconds)
+      if (!hasNavigatedToRoom.current) {
+        hasNavigatedToRoom.current = true;
+        router.replace("/room");
+      }
     };
 
     socket.on("match_found", onMatchFound);

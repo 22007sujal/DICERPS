@@ -1,0 +1,302 @@
+#pop_up_container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.8), rgba(30, 30, 60, 0.9));
+  backdrop-filter: blur(10px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: fadeIn 0.3s ease-out;
+  z-index: 1000;
+  font-family: "abel";
+}
+
+#pop_up_card {
+  border: none;
+  height: 100%;
+  width: 100%;
+  max-height: 450px;
+  max-width: 550px;
+  border-radius: 25px;
+  background: linear-gradient(145deg, #ffffff, #f8fafc);
+  box-shadow: 
+    0 25px 50px -12px rgba(0, 0, 0, 0.25),
+    0 0 0 1px rgba(255, 255, 255, 0.05),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  animation: popIn 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  transform: translateY(0);
+}
+
+/* Decorative background elements */
+#pop_up_card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(45deg, transparent, rgba(99, 102, 241, 0.1), transparent);
+  animation: rotate 8s linear infinite;
+  pointer-events: none;
+}
+
+#pop_up_card::after {
+  content: '';
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  right: 10px;
+  bottom: 10px;
+  border-radius: 20px;
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.8), rgba(248, 250, 252, 0.8));
+  z-index: -1;
+}
+
+#round {
+  font-size: 3rem;
+  height: fit-content;
+  font-weight: 800;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-align: center;
+  margin-bottom: 15px;
+  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  animation: glow 2s ease-in-out infinite alternate;
+}
+
+#winner_name {
+  font-size: 2.5rem;
+  height: fit-content;
+  font-weight: 700;
+  color: #1f2937;
+  text-align: center;
+  margin-bottom: 25px;
+  position: relative;
+  animation: bounceIn 0.6s ease-out 0.2s both;
+}
+
+/* Winner name color variations */
+#winner_name.player-win {
+  color: #059669;
+  text-shadow: 0 0 20px rgba(5, 150, 105, 0.3);
+}
+
+#winner_name.computer-win {
+  color: #dc2626;
+  text-shadow: 0 0 20px rgba(220, 38, 38, 0.3);
+}
+
+#winner_name.tie {
+  color: #d97706;
+  text-shadow: 0 0 20px rgba(217, 119, 6, 0.3);
+}
+
+#pop_up_card img {
+  border: 4px solid #e5e7eb;
+  border-radius: 20px;
+  width: 40%;
+  height: 40%;
+  object-fit: cover;
+  box-shadow: 
+    0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  transition: all 0.3s ease;
+  animation: imageFloat 0.8s ease-out 0.4s both;
+}
+
+#pop_up_card img:hover {
+  transform: scale(1.05) rotate(2deg);
+  box-shadow: 
+    0 25px 35px -5px rgba(0, 0, 0, 0.15),
+    0 15px 15px -5px rgba(0, 0, 0, 0.06);
+}
+
+#current-score {
+  border: none;
+  width: 90%;
+  height: 70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  background: linear-gradient(135deg, #f0f9ff 0%, #e0e7ff 100%);
+  border-radius: 20px;
+  box-shadow: 
+    inset 0 2px 4px rgba(0, 0, 0, 0.06),
+    0 8px 16px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+  animation: slideUp 0.5s ease-out 0.6s both;
+  margin-top: 20px;
+}
+
+#current-score::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  animation: shimmer 2s infinite;
+}
+
+#current-score div {
+  height: fit-content;
+  font-size: 1.5rem;
+  font-weight: 700;
+  padding: 10px 20px;
+  border-radius: 15px;
+  background: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  position: relative;
+  z-index: 2;
+}
+
+#current-score div:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+/* Score colors */
+#current-score .player-score {
+  color: #059669;
+  border: 2px solid #d1fae5;
+}
+
+#current-score .computer-score {
+  color: #dc2626;
+  border: 2px solid #fee2e2;
+}
+
+#current-score .vs-text {
+  color: #6b7280;
+  font-weight: 900;
+  font-size: 1.2rem;
+  background: none;
+  box-shadow: none;
+  border: none;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes popIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.8) translateY(40px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes bounceIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(5px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes imageFloat {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes glow {
+  from {
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  to {
+    text-shadow: 0 4px 20px rgba(102, 126, 234, 0.4);
+  }
+}
+
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes shimmer {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+/* Responsive design */
+@media (max-width: 640px) {
+  #pop_up_card {
+    max-width: 90%;
+    max-height: 80%;
+    margin: 20px;
+  }
+  
+  #round {
+    font-size: 2.5rem;
+  }
+  
+  #winner_name {
+    font-size: 2rem;
+  }
+  
+  #current-score {
+    gap: 20px;
+    height: 60px;
+  }
+  
+  #current-score div {
+    font-size: 1.2rem;
+    padding: 8px 16px;
+  }
+}
+
+/* Additional utility classes for dynamic styling */
+.celebration {
+  animation: celebrate 0.6s ease-in-out;
+}
+
+@keyframes celebrate {
+  0%, 100% { transform: scale(1); }
+  25% { transform: scale(1.05) rotate(-2deg); }
+  75% { transform: scale(1.05) rotate(2deg); }
+}

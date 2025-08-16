@@ -1,0 +1,90 @@
+/* Container styling */
+#over_container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+    padding: 20px;
+    background-color: #E2FF84;
+    font-family: 'Audiowide', sans-serif;
+}
+
+/* Lose Emoji/Icon */
+#lose {
+    width: 100px;
+    height: 100px;
+    animation: bounce 1.2s infinite ease-in-out;
+}
+
+/* Winner Info Card */
+#winner_info {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 400px;
+    padding: 20px;
+    border: 3px dashed #333;
+    align-items: center;
+    justify-content: center;
+    border-radius: 15px;
+    background: #fffef5;
+    box-shadow: 0px 8px 20px rgba(0,0,0,0.2);
+    animation: fadeIn 0.6s ease-in-out;
+    font-size: x-large;
+}
+
+/* Lose Heading */
+#lose_head {
+    width: 100%;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.8rem;
+    color: #222;
+    text-shadow: 2px 2px 5px rgba(255, 0, 0, 0.5);
+}
+
+#lose_head h1 {
+    height: 40px;
+    margin: 0;
+}
+
+/* New Game Button */
+#new_game {
+    width: 250px;
+    height: 60px;
+    color: white;
+    font-size: 1.5rem;
+    font-weight: bold;
+    border-radius: 15px;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+#new_game:hover {
+    transform: scale(1.08);
+}
+
+/* New Game Image Button Style */
+#new_game img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 15px;
+}
+
+/* Animations */
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}
