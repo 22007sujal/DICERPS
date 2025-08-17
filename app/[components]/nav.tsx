@@ -18,7 +18,8 @@ export default function Nav({ showConnect = true }: NavProps) {
   });
 
   const { data: profile, getDiceRps, saveDiceRps, uploadImage } = useDiceRps(
-    "http://localhost:3000"
+   "https://dicerps.vercel.app/"
+    
   );
 
   const [connector, setConnector] = useState<any | null>(null);
