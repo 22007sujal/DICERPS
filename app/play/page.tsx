@@ -16,7 +16,7 @@ export default function Page() {
   const router = useRouter();
   const account = useAccount();
 
-  const dicerps = useDiceRps("http://localhost:3000");
+  const dicerps = useDiceRps("https://c7c4a837-d950-472e-8e09-11c25104cb8b-00-236gow97avv2r.spock.replit.dev/");
 
   // ✅ Fetch profile for Wallet OR Guest
   useEffect(() => {
